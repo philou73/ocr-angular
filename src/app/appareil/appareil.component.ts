@@ -12,6 +12,7 @@ export class AppareilComponent implements OnInit {
   @Input() appareilStatus: string;
   //On ajoute l'index du compenent récupéré dans la boucle *ngFor pour communiquer avec le service
   @Input() index: number;
+	@Input() id: number;
 
   constructor(private appareilService: AppareilService) { }
 

@@ -4,14 +4,15 @@
 <app-appareil *ngFor="let myAppareil of appareils; let i = index" 
 	[appareilName]="myAppareil.name"
 	[appareilStatus]="myAppareil.status"
-	[index]="i"></app-appareil>
+	[index]="i"
+	[id]="myAppareil.id"></app-appareil>
 <!--<app-appareil [appareilName]="appareilOne" [appareilStatus]="'Eteint'"></app-appareil>
 <app-appareil [appareilName]="appareilTwo" [appareilStatus]="'Allumé'"></app-appareil>
 <app-appareil [appareilName]="appareilThree" [appareilStatus]="'Eteint'"></app-appareil>-->
 </ul>
 <button class="btn btn-success" 
-	[disabled]="!isAuth" 
+	[disabled]="!this.authService.isAuth" 
 	(click)="onAllumer()">Tout allumer</button>
 <button class="btn btn-danger" 
-	[disabled]="!isAuth" 
+	[disabled]="!this.authService.isAuth" 
 	(click)="onEteindre()">Tout éteindre</button>

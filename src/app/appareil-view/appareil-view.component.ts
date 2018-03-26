@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // Ajout de l'import au service Appareil
 import { AppareilService } from '../services/appareil.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-appareil-view',
@@ -11,7 +12,6 @@ export class AppareilViewComponent implements OnInit {
 
   //On a déporté la déclaration des appareils dans le service AppareilService, on déclare juste ici un tableau de type any
   appareils: any[];
-	isAuth: boolean = true;
 
   //Création d'une promise pour gérer l'asynchronisme
   lastUpdate = new Promise((resolve, reject) => {
@@ -23,7 +23,8 @@ export class AppareilViewComponent implements OnInit {
 	);
   });
   
-  constructor(private appareilService : AppareilService) { }
+  constructor(private appareilService : AppareilService,
+							private authService : AuthService) { }
 
   //Création d'un "lifecycle hook"
   ngOnInit() {
