@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // Ajout de l'import au service Appareil
 import { AppareilService } from '../services/appareil.service';
 import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-appareil-view',
@@ -12,6 +13,7 @@ export class AppareilViewComponent implements OnInit {
 
   //On a déporté la déclaration des appareils dans le service AppareilService, on déclare juste ici un tableau de type any
   appareils: any[];
+	appareilSubscription: Subscription;
 
   //Création d'une promise pour gérer l'asynchronisme
   lastUpdate = new Promise((resolve, reject) => {
@@ -28,7 +30,12 @@ export class AppareilViewComponent implements OnInit {
 
   //Création d'un "lifecycle hook"
   ngOnInit() {
-		this.appareils = this.appareilService.appareils;
+		this.appareilSubscription = this.appareilService.appareilSubject.subscribe(
+			(appareils: any[]) => {
+				this.appareils = appareils;
+			}
+		);
+		this.appareilService.emitAppareilSubject();
   }
   
 	onAllumer() {

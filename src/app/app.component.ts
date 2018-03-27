@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core'; //On importe "OnInit"
-import { Observable, Subscription } from 'rxjs/Observable';
+import { Component, OnInit, OnDestroy } from '@angular/core'; //On importe "OnInit"
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/interval';
 
 @Component({
@@ -9,7 +10,7 @@ import 'rxjs/add/observable/interval';
 })
 
 // On a ajouté "implements OnInit" pour implémenter l'interface
-export class AppComponent implements OnInit { 
+export class AppComponent implements OnInit, OnDestroy { 
   title = 'app';
 	secondes: number;
 	counterSubscription : Subscription;
