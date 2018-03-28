@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 export class EditAppareilComponent implements OnInit {
 	
 	// On crée un état par défaut
-	const defaultOnOff: string = 'éteint';
+	defaultOnOff: string = 'éteint';
 
-  constructor(private appareilService: AppareilService
+  constructor(private appareilService: AppareilService,
 							private router: Router) { }
 
   ngOnInit() {
