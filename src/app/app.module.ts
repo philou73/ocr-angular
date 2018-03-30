@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MonPremierComponent } from './mon-premier/mon-premier.component';
@@ -52,7 +52,8 @@ const appRoutes: Routes = [
     BrowserModule,
 		FormsModule, 
 		ReactiveFormsModule,
-		RouterModule.forRoot(appRoutes)
+		RouterModule.forRoot(appRoutes),
+		HttpClientModule
   ],
   providers: [
 		AppareilService,

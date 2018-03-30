@@ -1,12 +1,15 @@
 import { Subject } from 'rxjs/Subject';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class AppareilService {
 	
 	//Le tableau d'appareils sera un Subject pour que les différents éléments puissent interagir proprement avec lui
 	appareilSubject = new Subject<any[]>(); //Le Subject gérera des données de type tableau
 	
 	//On crée un tableau de machines électriques
-	private appareils = [
+	/*private appareils = [
 		{ 
 			id: 1,
 			name: 'Machine à laver', 
@@ -22,7 +25,11 @@ export class AppareilService {
 			name: 'Chaîne Hifi', 
 			status: 'éteint'
 		}
-	]
+	]*/
+	private appareils = [];
+	
+	// Dans le constructeur, on ajoute l'objet HttpClient
+	constructor (private httpClient : HttpClient) {}
 	
 	// Création d'une méthode d'émission
 	emitAppareilSubject(){
@@ -82,8 +89,37 @@ export class AppareilService {
 		// On ajoute l'appareil au tableau d'appareils
 		this.appareils.push(appareilObject);
 		
-		// On indique à tous les abonnés qu'une donnée a été modifiée
+		// On indique à tous les abonnés qu'une donnée a été modifiée	
 		this.emitAppareilSubject();
 		
+	}
+	
+	// Méthode d'enregistrement des appareils sur le back-end
+	saveAppareilsToServer(){
+		this.httpClient
+			.put("https://pge-ocr-angular.firebaseio.com/appareils.json", this.appareils) //Avec la méthode put, on écrase ce qui existe, avec post, on crée un nouvel enregistrement avec tous les appareils
+			.subscribe(
+				() => {
+					console.log("Enregistrement terminé !");
+				},
+				(error) => {
+					console.log("Erreur à l'enregistrement : " + error);
+				}
+			);
+	}
+	
+	//Méthode de récupération des appareils sur Firebase
+	getAppareilsFromServer(){
+		this.httpClient
+			.get<any[]>("https://pge-ocr-angular.firebaseio.com/appareils.json")
+			.subscribe(
+				(response) => {
+					this.appareils = response;
+					this.emitAppareilSubject(); // On met à jour la liste
+				},
+				(error) => {
+					console.log("Erreur dans la récupération : " + error);
+				}
+			)
 	}
 }

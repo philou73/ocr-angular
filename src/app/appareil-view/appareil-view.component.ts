@@ -51,4 +51,14 @@ export class AppareilViewComponent implements OnInit {
 			return null;
 		}
 	}
+	
+	//Méthode d'enregistrement de tous les appareils vers le serveur
+	onSave() {
+		this.appareilService.saveAppareilsToServer();
+	}
+	
+	//Méthode de récupération des appareils du serveur
+	onGet(){
+		this.appareilService.getAppareilsFromServer();
+	}
 }
